@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="background:#1B456D">
+<div class="chart-line-test" id="echarts" style="width:100%;height: 900px; margin: 0 auto"></div>
+<script src="../jquery-3.2.0.min.js"></script>
+<script src="../echarts.min.js"></script>
+<script>
+    function makeBar(divID) {
+        var myCharts = echarts.init(document.getElementById(divID));
+
+        option = {
+            subtitle: {
+                text: "大数据"
+            },
+            tooltip: {
+                show:false,
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            legend: {
+                show:false,
+                data: ['已使用', '未使用']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            color: ['rgba(11,144,222,1)', 'rgba(11,144,222,0.3)'],
+            xAxis: [
+                {
+                    type: 'category',
+                    data:[ {
+                        value: 'CPU',
+                        textStyle: {
+                            color: '#fff',
+                            fontSize:16
+                        },},
+                        {
+                            value: '磁盘',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize:16
+                            },},
+                        {
+                            value: '内存',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize:16
+                            }
+                    }],
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    show: false,
+                    axisLabel: {
+                        formatter: '{value} %'
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: '已使用',
+                    type: 'bar',
+                    zlevel: 100,
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top',
+                            textStyle: {
+                                color: "#fff",
+                                fontSize: 20
+                            }
+                        }
+                    },
+                    stack: 'bigdata',
+                    data: [40, 50, 60]
+                },
+                {
+                    name: '未使用',
+                    type: 'bar',
+                    stack: 'bigdata',
+                    data: [60, 50, 40]
+                }
+            ]
+        };
+        myCharts.setOption(option);
+    }
+    makeBar("echarts")
+</script>
+</body>
+</html>

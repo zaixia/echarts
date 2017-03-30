@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="background:#1B456D">
+<div class="chart-line-test" id="echarts" style="width:100%;height: 900px; margin: 0 auto"></div>
+<script src="jquery.js"></script>
+<script src="echarts.js"></script>
+<script>
+    function makeBar(divID) {
+        var myCharts = echarts.init(document.getElementById(divID));
+var dataAxis = ['CPU', '内存', '磁盘'];
+var data = ['50', '31', '12'];
+var yMax = 100;
+var dataShadow = [];
+
+for (var i = 0; i < data.length; i++) {
+    dataShadow.push(yMax);
+}
+option = {
+    xAxis: [
+                {
+                    type: 'category',
+                    data:[ {
+                        value: 'CPU',
+                        textStyle: {
+                            color: '#fff',
+                            fontSize:20
+                        },},
+                        {
+                            value: '磁盘',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize:20
+                            },},
+                        {
+                            value: '内存',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize:20
+                            }
+                        }],
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    }
+                }
+            ],
+    yAxis: {
+	show: false,
+        axisLine: {
+            show: false
+        },
+        axisTick: {
+            show: false
+        },
+        axisLabel: {
+            textStyle: {
+                color: '#999'
+            }
+        }
+    },
+    dataZoom: [
+        {
+            type: 'inside'
+        }
+    ],
+    series: [
+        { // For shadow
+		
+		
+		
+		        markPoint: {
+				symble:'circle',
+					tooltip: {
+						trigger: 'item',
+						backgroundColor: 'rgba(0,0,0,0)',
+						formatter:'123'
+                },
+                data: [
+                    {xAxis:0, y: 100, name:'Line', symbolSize:40},
+                    {xAxis:1, y: 100, name:'Bar', symbolSize:40},
+                    {xAxis:2, y: 100, name:'Scatter', symbolSize:40},
+       
+                ]
+            },
+            type: 'bar',
+            itemStyle: {
+                normal: {color: 'rgba(0,0,0,0.1)'}  //设置阴影
+            },
+            barGap:'-100%',
+            barCategoryGap:'40%',
+            data: dataShadow,
+            animation: false
+        },
+        {
+            type: 'bar',
+			 label: {
+                        normal: {
+                            show: true,
+                            position: 'insideTop',
+                            formatter: function (params) {
+                                console.log(params);
+                                return params.value+"%"
+                            },
+                            textStyle: {
+                                color: "#fff",
+                                fontSize:20
+                            }
+                        },
+						
+                    },
+            itemStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(
+                        0, 0, 0, 1,
+                        [
+                            {offset: 0, color: '#83bff6'},
+                            {offset: 0.5, color: '#188df0'},
+                            {offset: 1, color: '#188df0'}
+                        ]
+                    )
+                },
+                emphasis: {
+                    color: new echarts.graphic.LinearGradient(
+                        0, 0, 0, 1,
+                        [
+                            {offset: 0, color: '#2378f7'},
+                            {offset: 0.7, color: '#2378f7'},
+                            {offset: 1, color: '#83bff6'}
+                        ]
+                    )
+                }
+            },
+            data: data
+        }
+    ]
+};
+        myCharts.setOption(option);
+    }
+    makeBar("echarts");
+</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="background:#1B456D">
+<div class="chart-line-test" id="echarts" style="width:100%;height: 900px; margin: 0 auto"></div>
+<script src="../jquery-3.2.0.min.js"></script>
+<script src="../echarts.min.js"></script>
+<script>
+    function makeBar(divID) {
+        var myCharts = echarts.init(document.getElementById(divID));
+
+        option = {
+            tooltip: {
+                show:false,
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            legend: {
+                show:false,
+                data: ['已使用', '未使用']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            color: ['rgba(11,144,222,1)', 'rgba(11,144,222,0.3)'],
+            xAxis: [
+                {
+                    type: 'category',
+                    data:[ {
+                        value: 'CPU',
+                        textStyle: {
+                            color: '#fff',
+                            fontSize:20
+                        },},
+                        {
+                            value: '磁盘',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize:20
+                            },},
+                        {
+                            value: '内存',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize:20
+                            }
+                        }],
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    }
+                }
+            ],
+            yAxis: [
+                {show: false,
+                    type: 'value',
+                    axisLabel: {
+                        formatter: '{value} %'
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: '已使用',
+                    type: 'bar',
+                    zlevel: 100,
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'insideTop',
+                            formatter: function (params) {
+                                console.log(params);
+                                return params.value+"%"
+                            },
+                            textStyle: {
+                                color: "#fff",
+                                fontSize:20
+                            }
+                        }
+                    },
+                    stack: 'bigdata',
+                    data: [40,50,60]
+                },
+                {
+                    name: '未使用',
+                    type: 'bar',
+                    animation: {show:false},
+                    animationDelay: 300,
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top',
+                            formatter: function (params) {
+                                if(params.status == "normal"){
+                                    switch (params.name) {
+                                        case "CPU":
+                                            console.log(params.name);
+                                            return "CPU是500核，非常棒";
+                                            break;
+                                        case "磁盘":
+                                            return "磁盘是500G，非常帅";
+                                            break;
+                                        case "内存":
+                                            return "内存是500P，非常牛";
+                                            break;
+                                    }
+                                }
+                            },
+                            textStyle: {
+                                color: "#fff",
+                                fontSize:20
+                            }
+                        },
+                        emphasis:{
+                            show: true,
+                            position: 'top',
+                            formatter: function (params) {
+                                if(params.status == "emphasis"){
+                                    switch (params.name) {
+                                        case "CPU":
+                                            console.log(params.name);
+                                            return "CPU是500核，非常棒";
+                                            break;
+                                        case "磁盘":
+                                            return "磁盘是500G，非常帅";
+                                            break;
+                                        case "内存":
+                                            return "内存是500P，非常牛";
+                                            break;
+                                    }
+                                }
+                            },
+                            textStyle: {
+                                color: "#fff",
+                                fontSize:20
+                            }
+                        }
+                    },
+                    stack: 'bigdata',
+                    data: [60, 50, 40]
+                }
+            ]
+        };
+        myCharts.setOption(option);
+    }
+    makeBar("echarts");
+</script>
+</body>
+</html>

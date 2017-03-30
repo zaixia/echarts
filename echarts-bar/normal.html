@@ -23,6 +23,7 @@
         legend: {
             data:['CPU','磁盘','内存']
         },
+		color: ['rgba(11,144,222,1)', 'rgba(11,144,222,0.3)'],
         grid: {
             left: '3%',
             right: '4%',
@@ -42,40 +43,9 @@
         ],
         series : [
             {
-                name:'CPU',
-                type:'bar',
-                stack: 'CPU',
-                data:[20]
-            },
-            {
-                name:'CPU',
-                type:'bar',
-                stack: 'CPU',
-                data:[20]
-            },
-            {
-                name:'磁盘',
-                type:'bar',
-                stack: '磁盘',
-                data:[20]
-            },
-            {
-                name:'磁盘',
-                type:'bar',
-                stack: '磁盘',
-                data:[20]
-            },
-            {
-                name:'内存',
-                type:'bar',
-                stack: '内存',
-                data:[0,0,20]
-            },
-            {
-                name:'内存',
-                type:'bar',
-                stack: '内存',
-                data:[0,0,20]
+                name: 'value',
+                type: 'bar',
+                data: [1000,30,32]
             }
         ]
     };
